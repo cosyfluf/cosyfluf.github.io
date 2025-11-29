@@ -1,70 +1,1048 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine GitHub Page</title>
-    
-    <!-- Hier beginnt das Design (CSS) -->
+    <title>Cosyfluf's Site for Everything</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
+        /* Base styles */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #0a0a12;
+            color: #00ffcc;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(10, 10, 18, 0.9), rgba(10, 10, 18, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%2300ffcc" stroke-width="0.5"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        /* Header styles */
+        header {
+            background: linear-gradient(to right, #0a0a12, #1a1a2e, #0a0a12);
+            border-bottom: 2px solid #ff00ff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.1) 2px,
+                rgba(0, 255, 255, 0.1) 4px
+            );
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            color: #00ffcc;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Navigation styles */
+        nav {
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 10px;
         }
-        .container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        p {
-            line-height: 1.6;
-            color: #666;
-        }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 25px;
-            background-color: #2dba4e; /* GitHub Grün */
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+
+        .nav-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ffcc;
+            border: 1px solid #ff00ff;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
             font-weight: bold;
-            transition: background 0.3s;
+            letter-spacing: 1px;
         }
-        .button:hover {
-            background-color: #239a3b;
+
+        .nav-btn:hover {
+            background: #ff00ff;
+            color: #0a0a12;
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        .nav-btn.active {
+            background: #ff00ff;
+            color: #0a0a12;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        /* Main content area */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tool-section {
+            display: none;
+            background: rgba(10, 10, 30, 0.8);
+            border: 1px solid #00ffcc;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform-origin: top;
+            animation: expandSection 0.5s ease-out forwards;
+        }
+
+        @keyframes expandSection {
+            from {
+                opacity: 0;
+                transform: scaleY(0);
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                transform: scaleY(1);
+                max-height: 2000px;
+            }
+        }
+
+        .tool-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 0, 255, 0.05) 2px,
+                rgba(255, 0, 255, 0.05) 4px
+            );
+            pointer-events: none;
+        }
+
+        .tool-section.active {
+            display: block;
+        }
+
+        h2 {
+            color: #ff00ff;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #00ffcc;
+            padding-bottom: 10px;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+
+        /* Form elements */
+        input, textarea, select, button {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ffcc;
+            border: 1px solid #00ffcc;
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        button {
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ffcc;
+            border: 1px solid #ff00ff;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: auto;
+        }
+
+        button:hover {
+            background: #ff00ff;
+            color: #0a0a12;
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Result areas */
+        .result {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ffcc;
+            padding: 15px;
+            margin-top: 20px;
+            min-height: 100px;
+            overflow: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #ff00ff;
+            margin-top: 40px;
+            color: #00ffcc;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 80%;
+            }
+        }
+
+        /* Special effects */
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            z-index: 9999;
+            animation: scan 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00ffcc;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 20px, 0); }
+            100% { clip: rect(4px, 9999px, 91px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(26px, 9999px, 55px, 0); }
+            95% { clip: rect(42px, 9999px, 97px, 0); }
+            100% { clip: rect(38px, 9999px, 49px, 0); }
+        }
+
+        /* File input styling */
+        .file-input-container {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .file-input-container input[type="file"] {
+            display: none;
+        }
+
+        .file-input-label {
+            display: block;
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ffcc;
+            border: 1px solid #ff00ff;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .file-input-label:hover {
+            background: #ff00ff;
+            color: #0a0a12;
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #00ffcc;
+        }
+
+        /* Converter options */
+        .converter-options {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .converter-options select {
+            flex: 1;
         }
     </style>
 </head>
 <body>
-
-    <!-- Hier ist der sichtbare Inhalt -->
-    <div class="container">
-        <h1>Hallo Welt! 👋</h1>
-        <p>
-            Willkommen auf meiner neuen Webseite.<br>
-            Diese Seite wird kostenlos über <strong>GitHub Pages</strong> gehostet.
-        </p>
-        <p>
-            Hier kannst du nun beginnen, deinen eigenen Inhalt einzufügen.
-        </p>
+    <div class="scan-line"></div>
+    
+    <header>
+        <h1 class="glitch" data-text="COSYFLUF'S SITE FOR EVERYTHING">COSYFLUF'S SITE FOR EVERYTHING</h1>
+        <p class="tagline">YOUR ULTIMATE CYBER TOOLKIT</p>
+    </header>
+    
+    <nav>
+        <button class="nav-btn active" data-target="text-tools">Text Tools</button>
+        <button class="nav-btn" data-target="calculators">Calculators</button>
+        <button class="nav-btn" data-target="converters">Converters</button>
+        <button class="nav-btn" data-target="binary-tools">Binary Tools</button>
+        <button class="nav-btn" data-target="morse-tools">Morse Tools</button>
+        <button class="nav-btn" data-target="file-converters">File Converters</button>
+        <button class="nav-btn" data-target="generators">Generators</button>
+        <button class="nav-btn" data-target="utilities">Utilities</button>
+    </nav>
+    
+    <main>
+        <!-- Text Tools Section -->
+        <section id="text-tools" class="tool-section active">
+            <h2>TEXT MANIPULATION TOOLS</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Text Case Converter</h3>
+                    <textarea id="text-input" placeholder="Enter your text here..." rows="5"></textarea>
+                    <button id="to-upper">TO UPPERCASE</button>
+                    <button id="to-lower">to lowercase</button>
+                    <button id="to-title">To Title Case</button>
+                    <div class="result" id="text-result"></div>
+                </div>
+                <div>
+                    <h3>Character & Word Counter</h3>
+                    <textarea id="count-input" placeholder="Enter text to count..." rows="5"></textarea>
+                    <button id="count-btn">COUNT</button>
+                    <div class="result" id="count-result"></div>
+                </div>
+            </div>
+        </section>
         
-        <a href="https://github.com" class="button">Mein GitHub Profil</a>
-    </div>
+        <!-- Calculators Section -->
+        <section id="calculators" class="tool-section">
+            <h2>CALCULATORS</h2>
+            <div class="grid-3">
+                <div>
+                    <h3>Basic Calculator</h3>
+                    <input type="text" id="calc-display" readonly>
+                    <div class="grid-3">
+                        <button class="calc-btn">7</button>
+                        <button class="calc-btn">8</button>
+                        <button class="calc-btn">9</button>
+                        <button class="calc-btn">4</button>
+                        <button class="calc-btn">5</button>
+                        <button class="calc-btn">6</button>
+                        <button class="calc-btn">1</button>
+                        <button class="calc-btn">2</button>
+                        <button class="calc-btn">3</button>
+                        <button class="calc-btn">0</button>
+                        <button class="calc-btn">.</button>
+                        <button id="calc-clear">C</button>
+                    </div>
+                    <div class="grid-2">
+                        <button class="calc-op">+</button>
+                        <button class="calc-op">-</button>
+                        <button class="calc-op">*</button>
+                        <button class="calc-op">/</button>
+                    </div>
+                    <button id="calc-equals">=</button>
+                </div>
+                <div>
+                    <h3>Unit Price Calculator</h3>
+                    <input type="number" id="price" placeholder="Total Price">
+                    <input type="number" id="quantity" placeholder="Quantity">
+                    <button id="calculate-unit">CALCULATE</button>
+                    <div class="result" id="unit-result"></div>
+                </div>
+                <div>
+                    <h3>Percentage Calculator</h3>
+                    <input type="number" id="percent-value" placeholder="Value">
+                    <input type="number" id="percent-percent" placeholder="Percentage">
+                    <button id="calculate-percent">CALCULATE</button>
+                    <div class="result" id="percent-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Converters Section -->
+        <section id="converters" class="tool-section">
+            <h2>UNIT CONVERTERS</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Length Converter</h3>
+                    <input type="number" id="length-value" placeholder="Value">
+                    <select id="length-from">
+                        <option value="meter">Meters</option>
+                        <option value="kilometer">Kilometers</option>
+                        <option value="centimeter">Centimeters</option>
+                        <option value="millimeter">Millimeters</option>
+                        <option value="mile">Miles</option>
+                        <option value="yard">Yards</option>
+                        <option value="foot">Feet</option>
+                        <option value="inch">Inches</option>
+                    </select>
+                    <select id="length-to">
+                        <option value="meter">Meters</option>
+                        <option value="kilometer">Kilometers</option>
+                        <option value="centimeter">Centimeters</option>
+                        <option value="millimeter">Millimeters</option>
+                        <option value="mile">Miles</option>
+                        <option value="yard">Yards</option>
+                        <option value="foot">Feet</option>
+                        <option value="inch">Inches</option>
+                    </select>
+                    <button id="convert-length">CONVERT</button>
+                    <div class="result" id="length-result"></div>
+                </div>
+                <div>
+                    <h3>Temperature Converter</h3>
+                    <input type="number" id="temp-value" placeholder="Value">
+                    <select id="temp-from">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                    <select id="temp-to">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                        <option value="kelvin">Kelvin</option>
+                    </select>
+                    <button id="convert-temp">CONVERT</button>
+                    <div class="result" id="temp-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Binary Tools Section -->
+        <section id="binary-tools" class="tool-section">
+            <h2>BINARY CONVERSION TOOLS</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Text to Binary</h3>
+                    <textarea id="text-to-binary-input" placeholder="Enter text to convert to binary..." rows="5"></textarea>
+                    <button id="text-to-binary-btn">CONVERT TO BINARY</button>
+                    <div class="result" id="text-to-binary-result"></div>
+                </div>
+                <div>
+                    <h3>Binary to Text</h3>
+                    <textarea id="binary-to-text-input" placeholder="Enter binary to convert to text (8-bit groups separated by spaces)..." rows="5"></textarea>
+                    <button id="binary-to-text-btn">CONVERT TO TEXT</button>
+                    <div class="result" id="binary-to-text-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Morse Tools Section -->
+        <section id="morse-tools" class="tool-section">
+            <h2>MORSE CODE TOOLS</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Text to Morse Code</h3>
+                    <textarea id="text-to-morse-input" placeholder="Enter text to convert to Morse code..." rows="5"></textarea>
+                    <button id="text-to-morse-btn">CONVERT TO MORSE</button>
+                    <div class="result" id="text-to-morse-result"></div>
+                </div>
+                <div>
+                    <h3>Morse Code to Text</h3>
+                    <textarea id="morse-to-text-input" placeholder="Enter Morse code to convert to text (use . for dots, - for dashes, space between letters, / between words)..." rows="5"></textarea>
+                    <button id="morse-to-text-btn">CONVERT TO TEXT</button>
+                    <div class="result" id="morse-to-text-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- File Converters Section -->
+        <section id="file-converters" class="tool-section">
+            <h2>FILE CONVERSION TOOLS</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Audio File Converter</h3>
+                    <div class="file-input-container">
+                        <label for="audio-file-input" class="file-input-label">SELECT AUDIO FILE</label>
+                        <input type="file" id="audio-file-input" accept="audio/*">
+                        <div class="file-info" id="audio-file-info">No file selected</div>
+                    </div>
+                    <div class="converter-options">
+                        <select id="audio-format">
+                            <option value="mp3">MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="ogg">OGG</option>
+                            <option value="m4a">M4A</option>
+                            <option value="wma">WMA</option>
+                        </select>
+                        <button id="convert-audio">CONVERT AUDIO</button>
+                    </div>
+                    <div class="result" id="audio-convert-result"></div>
+                </div>
+                <div>
+                    <h3>Image File Converter</h3>
+                    <div class="file-input-container">
+                        <label for="image-file-input" class="file-input-label">SELECT IMAGE FILE</label>
+                        <input type="file" id="image-file-input" accept="image/*">
+                        <div class="file-info" id="image-file-info">No file selected</div>
+                    </div>
+                    <div class="converter-options">
+                        <select id="image-format">
+                            <option value="png">PNG</option>
+                            <option value="jpg">JPG</option>
+                            <option value="gif">GIF</option>
+                            <option value="webp">WEBP</option>
+                            <option value="bmp">BMP</option>
+                        </select>
+                        <button id="convert-image">CONVERT IMAGE</button>
+                    </div>
+                    <div class="result" id="image-convert-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Generators Section -->
+        <section id="generators" class="tool-section">
+            <h2>GENERATORS</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Password Generator</h3>
+                    <label>Length: <input type="number" id="pass-length" value="12" min="6" max="50"></label>
+                    <label><input type="checkbox" id="uppercase" checked> Uppercase Letters</label>
+                    <label><input type="checkbox" id="lowercase" checked> Lowercase Letters</label>
+                    <label><input type="checkbox" id="numbers" checked> Numbers</label>
+                    <label><input type="checkbox" id="symbols"> Symbols</label>
+                    <button id="generate-pass">GENERATE PASSWORD</button>
+                    <div class="result" id="pass-result"></div>
+                </div>
+                <div>
+                    <h3>Random Number Generator</h3>
+                    <input type="number" id="min-num" placeholder="Minimum" value="1">
+                    <input type="number" id="max-num" placeholder="Maximum" value="100">
+                    <button id="generate-num">GENERATE NUMBER</button>
+                    <div class="result" id="num-result"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Utilities Section -->
+        <section id="utilities" class="tool-section">
+            <h2>UTILITIES</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Color Picker</h3>
+                    <input type="color" id="color-picker" value="#00ffcc">
+                    <div id="color-display" style="height: 100px; border: 1px solid #00ffcc; margin-top: 10px;"></div>
+                    <div id="color-values" class="result"></div>
+                </div>
+                <div>
+                    <h3>Base64 Encoder/Decoder</h3>
+                    <textarea id="base64-input" placeholder="Enter text to encode or base64 to decode" rows="5"></textarea>
+                    <button id="encode-base64">ENCODE</button>
+                    <button id="decode-base64">DECODE</button>
+                    <div class="result" id="base64-result"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2023 COSYFLUF'S SITE FOR EVERYTHING | CYBER TOOLKIT v2.0</p>
+        <p>SYSTEM STATUS: <span style="color: #00ffcc;">ONLINE</span></p>
+    </footer>
 
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and sections
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tool-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding section
+                button.classList.add('active');
+                const targetId = button.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                targetSection.classList.add('active');
+            });
+        });
+
+        // Text Tools
+        document.getElementById('to-upper').addEventListener('click', () => {
+            const text = document.getElementById('text-input').value;
+            document.getElementById('text-result').textContent = text.toUpperCase();
+        });
+
+        document.getElementById('to-lower').addEventListener('click', () => {
+            const text = document.getElementById('text-input').value;
+            document.getElementById('text-result').textContent = text.toLowerCase();
+        });
+
+        document.getElementById('to-title').addEventListener('click', () => {
+            const text = document.getElementById('text-input').value;
+            document.getElementById('text-result').textContent = text.replace(/\w\S*/g, txt => {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        });
+
+        document.getElementById('count-btn').addEventListener('click', () => {
+            const text = document.getElementById('count-input').value;
+            const chars = text.length;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('count-result').textContent = `Characters: ${chars} | Words: ${words}`;
+        });
+
+        // Calculator
+        let calcDisplay = document.getElementById('calc-display');
+        let currentInput = '';
+        let operator = '';
+        let previousInput = '';
+
+        document.querySelectorAll('.calc-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                currentInput += button.textContent;
+                calcDisplay.value = currentInput;
+            });
+        });
+
+        document.querySelectorAll('.calc-op').forEach(button => {
+            button.addEventListener('click', () => {
+                if (currentInput === '') return;
+                operator = button.textContent;
+                previousInput = currentInput;
+                currentInput = '';
+                calcDisplay.value = operator;
+            });
+        });
+
+        document.getElementById('calc-equals').addEventListener('click', () => {
+            if (previousInput === '' || currentInput === '' || operator === '') return;
+            
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            
+            switch(operator) {
+                case '+': result = prev + current; break;
+                case '-': result = prev - current; break;
+                case '*': result = prev * current; break;
+                case '/': result = prev / current; break;
+                default: return;
+            }
+            
+            calcDisplay.value = result;
+            currentInput = result.toString();
+            previousInput = '';
+            operator = '';
+        });
+
+        document.getElementById('calc-clear').addEventListener('click', () => {
+            currentInput = '';
+            previousInput = '';
+            operator = '';
+            calcDisplay.value = '';
+        });
+
+        // Unit Price Calculator
+        document.getElementById('calculate-unit').addEventListener('click', () => {
+            const price = parseFloat(document.getElementById('price').value);
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            
+            if (isNaN(price) || isNaN(quantity) || quantity === 0) {
+                document.getElementById('unit-result').textContent = 'Please enter valid numbers';
+                return;
+            }
+            
+            const unitPrice = price / quantity;
+            document.getElementById('unit-result').textContent = `Unit Price: $${unitPrice.toFixed(2)}`;
+        });
+
+        // Percentage Calculator
+        document.getElementById('calculate-percent').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('percent-value').value);
+            const percent = parseFloat(document.getElementById('percent-percent').value);
+            
+            if (isNaN(value) || isNaN(percent)) {
+                document.getElementById('percent-result').textContent = 'Please enter valid numbers';
+                return;
+            }
+            
+            const result = (value * percent) / 100;
+            document.getElementById('percent-result').textContent = `${percent}% of ${value} = ${result}`;
+        });
+
+        // Length Converter
+        document.getElementById('convert-length').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('length-value').value);
+            const fromUnit = document.getElementById('length-from').value;
+            const toUnit = document.getElementById('length-to').value;
+            
+            if (isNaN(value)) {
+                document.getElementById('length-result').textContent = 'Please enter a valid number';
+                return;
+            }
+            
+            // Convert to meters first
+            let meters;
+            switch(fromUnit) {
+                case 'meter': meters = value; break;
+                case 'kilometer': meters = value * 1000; break;
+                case 'centimeter': meters = value / 100; break;
+                case 'millimeter': meters = value / 1000; break;
+                case 'mile': meters = value * 1609.34; break;
+                case 'yard': meters = value * 0.9144; break;
+                case 'foot': meters = value * 0.3048; break;
+                case 'inch': meters = value * 0.0254; break;
+                default: meters = value;
+            }
+            
+            // Convert from meters to target unit
+            let result;
+            switch(toUnit) {
+                case 'meter': result = meters; break;
+                case 'kilometer': result = meters / 1000; break;
+                case 'centimeter': result = meters * 100; break;
+                case 'millimeter': result = meters * 1000; break;
+                case 'mile': result = meters / 1609.34; break;
+                case 'yard': result = meters / 0.9144; break;
+                case 'foot': result = meters / 0.3048; break;
+                case 'inch': result = meters / 0.0254; break;
+                default: result = meters;
+            }
+            
+            document.getElementById('length-result').textContent = `${value} ${fromUnit} = ${result.toFixed(4)} ${toUnit}`;
+        });
+
+        // Temperature Converter
+        document.getElementById('convert-temp').addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('temp-value').value);
+            const fromUnit = document.getElementById('temp-from').value;
+            const toUnit = document.getElementById('temp-to').value;
+            
+            if (isNaN(value)) {
+                document.getElementById('temp-result').textContent = 'Please enter a valid number';
+                return;
+            }
+            
+            // Convert to Celsius first
+            let celsius;
+            switch(fromUnit) {
+                case 'celsius': celsius = value; break;
+                case 'fahrenheit': celsius = (value - 32) * 5/9; break;
+                case 'kelvin': celsius = value - 273.15; break;
+                default: celsius = value;
+            }
+            
+            // Convert from Celsius to target unit
+            let result;
+            switch(toUnit) {
+                case 'celsius': result = celsius; break;
+                case 'fahrenheit': result = (celsius * 9/5) + 32; break;
+                case 'kelvin': result = celsius + 273.15; break;
+                default: result = celsius;
+            }
+            
+            document.getElementById('temp-result').textContent = `${value}° ${fromUnit} = ${result.toFixed(2)}° ${toUnit}`;
+        });
+
+        // Binary Tools
+        document.getElementById('text-to-binary-btn').addEventListener('click', () => {
+            const text = document.getElementById('text-to-binary-input').value;
+            let binary = '';
+            for (let i = 0; i < text.length; i++) {
+                const charCode = text.charCodeAt(i);
+                binary += charCode.toString(2).padStart(8, '0') + ' ';
+            }
+            document.getElementById('text-to-binary-result').textContent = binary.trim();
+        });
+
+        document.getElementById('binary-to-text-btn').addEventListener('click', () => {
+            const binary = document.getElementById('binary-to-text-input').value;
+            // Remove any extra spaces and split into 8-bit chunks
+            const binaryArray = binary.replace(/\s+/g, ' ').trim().split(' ');
+            let text = '';
+            for (let i = 0; i < binaryArray.length; i++) {
+                const byte = binaryArray[i];
+                if (byte.length === 8) {
+                    text += String.fromCharCode(parseInt(byte, 2));
+                }
+            }
+            document.getElementById('binary-to-text-result').textContent = text;
+        });
+
+        // Morse Tools
+        const morseCode = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+            'Y': '-.--', 'Z': '--..',
+            '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-',
+            '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
+            '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--',
+            '/': '-..-.', '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...',
+            ';': '-.-.-.', '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-',
+            '"': '.-..-.', '$': '...-..-', '@': '.--.-.', ' ': '/'
+        };
+
+        // Reverse the morseCode object for decoding
+        const textFromMorse = {};
+        for (const [key, value] of Object.entries(morseCode)) {
+            textFromMorse[value] = key;
+        }
+
+        document.getElementById('text-to-morse-btn').addEventListener('click', () => {
+            const text = document.getElementById('text-to-morse-input').value.toUpperCase();
+            let morse = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (morseCode[char]) {
+                    morse += morseCode[char] + ' ';
+                } else if (char === ' ') {
+                    morse += '/ ';
+                }
+            }
+            document.getElementById('text-to-morse-result').textContent = morse.trim();
+        });
+
+        document.getElementById('morse-to-text-btn').addEventListener('click', () => {
+            const morse = document.getElementById('morse-to-text-input').value.trim();
+            const morseWords = morse.split(' / ');
+            let text = '';
+            
+            for (let i = 0; i < morseWords.length; i++) {
+                const morseChars = morseWords[i].split(' ');
+                for (let j = 0; j < morseChars.length; j++) {
+                    const morseChar = morseChars[j];
+                    if (textFromMorse[morseChar]) {
+                        text += textFromMorse[morseChar];
+                    }
+                }
+                if (i < morseWords.length - 1) {
+                    text += ' ';
+                }
+            }
+            
+            document.getElementById('morse-to-text-result').textContent = text;
+        });
+
+        // File Converters
+        document.getElementById('audio-file-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('audio-file-info').textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            }
+        });
+
+        document.getElementById('image-file-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('image-file-info').textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            }
+        });
+
+        document.getElementById('convert-audio').addEventListener('click', () => {
+            const fileInput = document.getElementById('audio-file-input');
+            const format = document.getElementById('audio-format').value;
+            
+            if (!fileInput.files[0]) {
+                document.getElementById('audio-convert-result').textContent = 'Please select an audio file first';
+                return;
+            }
+            
+            document.getElementById('audio-convert-result').textContent = `Converting to ${format.toUpperCase()} format... (Note: This is a demo. In a real application, this would convert the file using a server-side process or client library)`;
+        });
+
+        document.getElementById('convert-image').addEventListener('click', () => {
+            const fileInput = document.getElementById('image-file-input');
+            const format = document.getElementById('image-format').value;
+            
+            if (!fileInput.files[0]) {
+                document.getElementById('image-convert-result').textContent = 'Please select an image file first';
+                return;
+            }
+            
+            document.getElementById('image-convert-result').textContent = `Converting to ${format.toUpperCase()} format... (Note: This is a demo. In a real application, this would convert the file using a server-side process or client library)`;
+        });
+
+        // Password Generator
+        document.getElementById('generate-pass').addEventListener('click', () => {
+            const length = parseInt(document.getElementById('pass-length').value);
+            const uppercase = document.getElementById('uppercase').checked;
+            const lowercase = document.getElementById('lowercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+            
+            let charset = '';
+            if (uppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (lowercase) charset += 'abcdefghijklmnopqrstuvwxyz';
+            if (numbers) charset += '0123456789';
+            if (symbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            if (charset === '') {
+                document.getElementById('pass-result').textContent = 'Please select at least one character type';
+                return;
+            }
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            
+            document.getElementById('pass-result').textContent = password;
+        });
+
+        // Random Number Generator
+        document.getElementById('generate-num').addEventListener('click', () => {
+            const min = parseInt(document.getElementById('min-num').value);
+            const max = parseInt(document.getElementById('max-num').value);
+            
+            if (isNaN(min) || isNaN(max) || min >= max) {
+                document.getElementById('num-result').textContent = 'Please enter valid min and max values';
+                return;
+            }
+            
+            const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById('num-result').textContent = randomNum;
+        });
+
+        // Color Picker
+        document.getElementById('color-picker').addEventListener('input', () => {
+            const color = document.getElementById('color-picker').value;
+            document.getElementById('color-display').style.backgroundColor = color;
+            
+            // Convert hex to RGB
+            const r = parseInt(color.substr(1, 2), 16);
+            const g = parseInt(color.substr(3, 2), 16);
+            const b = parseInt(color.substr(5, 2), 16);
+            
+            document.getElementById('color-values').textContent = `HEX: ${color} | RGB: ${r}, ${g}, ${b}`;
+        });
+
+        // Base64 Encoder/Decoder
+        document.getElementById('encode-base64').addEventListener('click', () => {
+            const text = document.getElementById('base64-input').value;
+            const encoded = btoa(text);
+            document.getElementById('base64-result').textContent = encoded;
+        });
+
+        document.getElementById('decode-base64').addEventListener('click', () => {
+            const text = document.getElementById('base64-input').value;
+            try {
+                const decoded = atob(text);
+                document.getElementById('base64-result').textContent = decoded;
+            } catch (e) {
+                document.getElementById('base64-result').textContent = 'Invalid Base64 string';
+            }
+        });
+
+        // Initialize color picker display
+        document.getElementById('color-picker').dispatchEvent(new Event('input'));
+    </script>
 </body>
 </html>
