@@ -1,88 +1,333 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stupid Center - Warning</title>
+    <title>GOODBLASTER05 - THE ZONE</title>
     <style>
+        /* RESET & FONTS */
+        * {
+            box-sizing: border-box;
+            cursor: crosshair; /* Fadenkreuz-Mauszeiger überall */
+        }
+
         body {
-            background-color: #111; /* Fast schwarz */
-            color: #ddd; /* Helles Grau für Text */
-            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #050000;
+            color: #ff3300;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            overflow: hidden; /* Kein Scrollen während des Spiels */
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+        }
+
+        /* HINTERGRUND EFFEKT */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 50, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 50, 0, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            perspective: 500px;
+            transform: scale(1.2);
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: perspective(500px) rotateX(20deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(20deg) translateY(40px); }
+        }
+
+        /* HEADER */
+        header {
             text-align: center;
-            padding: 20px;
+            margin-top: 20px;
+            z-index: 10;
+            pointer-events: none; /* Klicks gehen durch den Header durch */
         }
 
         h1 {
-            font-size: 13vw; /* Noch etwas größer */
-            color: #ff0000; /* Knallrot */
+            font-size: 5rem;
             margin: 0;
-            text-transform: uppercase;
-            line-height: 1;
-            font-weight: 900;
-            letter-spacing: -5px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            color: #ff0000;
+            text-shadow: 
+                3px 3px 0px #fff, 
+                -3px -3px 0px #000,
+                0 0 20px #ff0000;
+            letter-spacing: 5px;
+            animation: pulse 1s infinite alternate;
         }
 
-        p.warning-text {
-            margin-top: 30px;
-            font-size: 1.3rem;
-            max-width: 800px;
-            border-top: 1px solid #ff0000; /* Roter Strich zur Abtrennung */
-            padding-top: 20px;
-            line-height: 1.5;
-        }
-
-        .highlight {
-            color: #fff;
-            font-weight: bold;
-            text-decoration: underline;
-            text-decoration-color: #ff0000;
-        }
-
-        /* Der Button Style */
-        .hell-button {
-            margin-top: 60px;
-            display: inline-block;
-            background-color: #333;
-            color: #ff6666;
-            padding: 15px 30px;
-            text-decoration: none;
+        .subtitle {
             font-size: 1.5rem;
-            font-weight: bold;
+            color: #ffaa00;
+            background: #000;
+            padding: 5px 20px;
             border: 2px solid #ff0000;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            display: inline-block;
         }
 
-        .hell-button:hover {
-            background-color: #ff0000;
+        /* SPIELFELD */
+        #game-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* UI ELEMENTE */
+        .hud-panel {
+            position: absolute;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff3300;
+            box-shadow: 0 0 15px #ff3300;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 20;
+            pointer-events: auto;
+        }
+
+        #score-board {
+            top: 20px;
+            left: 20px;
+        }
+
+        #timer-board {
+            top: 20px;
+            right: 20px;
+            color: #ff0000;
+        }
+
+        #start-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #000;
+            border: 5px solid #ff0000;
+            padding: 40px;
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+        }
+
+        button {
+            background: #ff0000;
             color: #000;
-            box-shadow: 0 0 25px #ff0000;
-            transform: scale(1.05);
+            border: none;
+            padding: 15px 40px;
+            font-size: 2rem;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #fff;
+            box-shadow: 0 0 20px #fff;
+            transform: scale(1.1);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+
+        .back-link:hover { color: #fff; }
+
+        /* ZIELE (TARGETS) */
+        .target {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #fff 10%, #ff0000 40%, transparent 70%);
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+            cursor: crosshair;
+            user-select: none;
+        }
+
+        .target::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            border: 2px dashed #ffaa00;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: spinReverse 4s linear infinite;
+        }
+
+        /* EXPLOSION */
+        .explosion {
+            position: absolute;
+            font-size: 3rem;
+            color: yellow;
+            pointer-events: none;
+            animation: fadeOut 0.5s forwards;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spinReverse { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+        @keyframes fadeOut {
+            0% { transform: scale(0.5); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- GANZ GROSS -->
-    <h1>DISCLAIMER</h1>
+    <div class="bg-grid"></div>
 
-    <!-- Der englische Text -->
-    <p class="warning-text">
-        The content of this page is no longer related to the GitHub repository and is intended solely for amusement.<br><br>
-        Please be advised: <span class="highlight">The following content is available in German only.</span>
-    </p>
+    <header>
+        <h1>GOODBLASTER 05</h1>
+        <div class="subtitle">WILLKOMMEN IN DER HÖLLE</div>
+    </header>
 
-    <!-- Button zu Goodi's Hölle -->
-    <a href="/goodi/index.html" class="hell-button">goodi's hölle</a>
+    <!-- Score & Timer -->
+    <div id="score-board" class="hud-panel">SCORE: <span id="score">0</span></div>
+    <div id="timer-board" class="hud-panel">TIME: <span id="time">30</span></div>
 
+    <!-- Start / Game Over Screen -->
+    <div id="start-screen">
+        <h2 id="msg-title" style="color: #ff3300; font-size: 3rem; margin: 0;">READY TO BLAST?</h2>
+        <p style="color: #aaa;">Klicke auf die Ziele bevor die Zeit abläuft.</p>
+        <button onclick="startGame()">START GAME</button>
+        <br>
+        <a href="/index.html" class="back-link">RÜCKZUG (ZURÜCK ZUR HAUPTSEITE)</a>
+    </div>
+
+    <!-- Spielfeld -->
+    <div id="game-area"></div>
+
+    <script>
+        let score = 0;
+        let timeLeft = 30;
+        let gameActive = false;
+        let gameInterval;
+        let spawnInterval;
+        const gameArea = document.getElementById('game-area');
+        const scoreDisplay = document.getElementById('score');
+        const timeDisplay = document.getElementById('time');
+        const startScreen = document.getElementById('start-screen');
+        const msgTitle = document.getElementById('msg-title');
+
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            gameActive = true;
+            
+            // UI Reset
+            scoreDisplay.innerText = score;
+            timeDisplay.innerText = timeLeft;
+            startScreen.style.display = 'none';
+            gameArea.innerHTML = ''; // Alte Ziele löschen
+
+            // Timer Loop
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                timeDisplay.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+
+            // Spawn Loop (wird schneller mit der Zeit)
+            spawnTarget();
+            spawnInterval = setInterval(spawnTarget, 800);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(spawnInterval);
+            
+            startScreen.style.display = 'block';
+            msgTitle.innerText = "GAME OVER";
+            
+            // Highscore Nachricht
+            if (score > 20) {
+                msgTitle.innerText += "\nLEGENDÄR!";
+            } else {
+                msgTitle.innerText += "\nSCHWACH!";
+            }
+        }
+
+        function spawnTarget() {
+            if (!gameActive) return;
+
+            const target = document.createElement('div');
+            target.classList.add('target');
+            
+            // Zufällige Position (mit Randabstand)
+            const x = Math.random() * (window.innerWidth - 100) + 50;
+            const y = Math.random() * (window.innerHeight - 200) + 100; // Unter dem Header bleiben
+            
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+
+            // Klick Event
+            target.onclick = function() {
+                if (!gameActive) return;
+                
+                // Score erhöhen
+                score++;
+                scoreDisplay.innerText = score;
+                
+                // Explosionseffekt
+                createExplosion(x, y);
+                
+                // Ziel entfernen
+                target.remove();
+                
+                // Sofort neues spawnen für Action
+                if (Math.random() > 0.5) spawnTarget(); 
+            };
+
+            // Automatisches Verschwinden nach 2 Sekunden (wenn nicht geklickt)
+            setTimeout(() => {
+                if (target.parentNode) target.remove();
+            }, 2000);
+
+            gameArea.appendChild(target);
+        }
+
+        function createExplosion(x, y) {
+            const boom = document.createElement('div');
+            boom.classList.add('explosion');
+            boom.innerText = '💥';
+            boom.style.left = (x + 10) + 'px';
+            boom.style.top = (y + 10) + 'px';
+            gameArea.appendChild(boom);
+            
+            setTimeout(() => boom.remove(), 500);
+        }
+    </script>
 </body>
 </html>
