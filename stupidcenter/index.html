@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stupid Center - Warning</title>
+    <style>
+        body {
+            background-color: #111; /* Fast schwarz */
+            color: #ddd; /* Helles Grau für Text */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 13vw; /* Noch etwas größer */
+            color: #ff0000; /* Knallrot */
+            margin: 0;
+            text-transform: uppercase;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -5px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        p.warning-text {
+            margin-top: 30px;
+            font-size: 1.3rem;
+            max-width: 800px;
+            border-top: 1px solid #ff0000; /* Roter Strich zur Abtrennung */
+            padding-top: 20px;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: underline;
+            text-decoration-color: #ff0000;
+        }
+
+        /* Der Button Style */
+        .hell-button {
+            margin-top: 60px;
+            display: inline-block;
+            background-color: #333;
+            color: #ff6666;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hell-button:hover {
+            background-color: #ff0000;
+            color: #000;
+            box-shadow: 0 0 25px #ff0000;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GANZ GROSS -->
+    <h1>DISCLAIMER</h1>
+
+    <!-- Der englische Text -->
+    <p class="warning-text">
+        The content of this page is no longer related to the GitHub repository and is intended solely for amusement.<br><br>
+        Please be advised: <span class="highlight">The following content is available in German only.</span>
+    </p>
+
+    <!-- Button zu Goodi's Hölle -->
+    <a href="/goodi/index.html" class="hell-button">goodi's hölle</a>
+
+</body>
+</html>
